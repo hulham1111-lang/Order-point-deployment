@@ -1,0 +1,274 @@
+/* The Simple - 白と黒のみのモノトーンテーマ（30代後半〜40代前半向け） */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Mincho ProN', 'Yu Mincho', '游明朝', 'Noto Serif JP', serif;
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.container {
+    width: 100%;
+    max-width: 560px;
+}
+
+.form-wrapper {
+    background: #ffffff;
+    padding: 48px 40px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e5e5;
+}
+
+.form-header {
+    margin-bottom: 36px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.form-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #4a4a4a;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.75;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    color: #1a1a1a;
+    font-weight: 500;
+    font-size: 0.9375rem;
+}
+
+.required {
+    color: #000000;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d0d0d0;
+    background-color: #ffffff;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+textarea::placeholder {
+    color: #999999;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.06);
+}
+
+input[type="text"]:invalid:not(:placeholder-shown):not(:focus),
+input[type="email"]:invalid:not(:placeholder-shown):not(:focus) {
+    border-color: #666666;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231a1a1a' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+.checkbox-group {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.9375rem;
+    color: #333333;
+    line-height: 1.6;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #000000;
+    flex-shrink: 0;
+}
+
+.error-message {
+    color: #333333;
+    font-size: 0.8125rem;
+    min-height: 1.25rem;
+    display: block;
+    font-weight: 400;
+}
+
+.error-message:not(:empty) {
+    color: #1a1a1a;
+}
+
+.submit-btn {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #000000;
+    padding: 16px 32px;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    margin-top: 8px;
+    position: relative;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: #333333;
+    border-color: #333333;
+}
+
+.submit-btn:active:not(:disabled) {
+    background: #1a1a1a;
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-loader {
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.submit-btn.loading .btn-text {
+    opacity: 0;
+}
+
+.submit-btn.loading .btn-loader {
+    display: block;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.success-message {
+    display: none;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    padding: 20px 24px;
+    margin-top: 24px;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #e5e5e5;
+    font-size: 0.9375rem;
+}
+
+.success-message.show {
+    display: flex;
+}
+
+.success-message svg {
+    flex-shrink: 0;
+    stroke: #1a1a1a;
+}
+
+/* エラー時の入力欄（JSで付与するスタイル用） */
+input.error,
+select.error,
+textarea.error {
+    border-color: #1a1a1a;
+}
+
+/* レスポンシブ */
+@media (max-width: 640px) {
+    body {
+        padding: 16px;
+    }
+
+    .form-wrapper {
+        padding: 32px 24px;
+    }
+
+    .form-header h1 {
+        font-size: 1.375rem;
+    }
+
+    .form-header {
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+    }
+
+    .contact-form {
+        gap: 20px;
+    }
+}

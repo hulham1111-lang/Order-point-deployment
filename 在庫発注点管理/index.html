@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在庫発注点管理シート</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <header class="page-header">
+            <h1>在庫発注点管理シート</h1>
+            <p>現在庫と発注点を確認し、発注のタイミングを把握します。</p>
+        </header>
+
+        <div class="info-section">
+            <div class="info-box">
+                <h3>📋 このウェブアプリについて</h3>
+                <p>この画面は、Googleスプレッドシートの「発注判断」シートのデータを表示するためのウェブアプリです。</p>
+                <p class="info-note">💡 データの更新はスプレッドシート上で「★在庫管理メニュー」＞「CSVから発注判断を更新」を実行してください。</p>
+            </div>
+        </div>
+
+        <section class="summary-cards">
+            <div class="summary-card urgent">
+                <div class="label">急ぎ発注</div>
+                <div class="value" id="summaryUrgent">0</div>
+            </div>
+            <div class="summary-card review">
+                <div class="label">検討</div>
+                <div class="value" id="summaryReview">0</div>
+            </div>
+            <div class="summary-card">
+                <div class="label">登録品目数</div>
+                <div class="value" id="summaryTotal">0</div>
+            </div>
+            <div class="summary-card normal">
+                <div class="label">余裕</div>
+                <div class="value" id="summaryOk">0</div>
+            </div>
+        </section>
+
+        <div class="toolbar">
+            <div class="search-wrap">
+                <input type="text" id="searchInput" placeholder="商品名・商品コードで検索" aria-label="検索" role="searchbox" autocomplete="off">
+                <button type="button" class="search-clear" id="searchClear" aria-label="検索をクリア" hidden>×</button>
+            </div>
+            <div class="filter-tabs" role="tablist">
+                <button type="button" role="tab" data-filter="all" class="active">すべて</button>
+                <button type="button" role="tab" data-filter="urgent">急ぎ発注</button>
+                <button type="button" role="tab" data-filter="review">検討</button>
+                <button type="button" role="tab" data-filter="ok">余裕</button>
+            </div>
+            <div class="sort-wrap">
+                <span class="sort-label">仕入先:</span>
+                <button type="button" class="sort-btn" data-sort="asc" id="sortAsc" aria-pressed="true">昇順</button>
+                <button type="button" class="sort-btn" data-sort="desc" id="sortDesc" aria-pressed="false">降順</button>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>仕入先</th>
+                        <th>商品コード</th>
+                        <th>商品名</th>
+                        <th class="num">在庫数</th>
+                        <th class="num">1日平均販売数</th>
+                        <th class="num">在庫期限(日)</th>
+                        <th class="num">発注目安(数)</th>
+                        <th>ステータス</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- script.js で行を生成 -->
+                </tbody>
+            </table>
+            <div class="empty-state" id="emptyState" hidden>
+                <p>該当する品目がありません。</p>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <p>在庫発注点管理システム - 発注判断シートの表示用ウェブアプリ</p>
+            <p class="footer-note">データはスプレッドシートの「発注判断」シートから取得されます</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
