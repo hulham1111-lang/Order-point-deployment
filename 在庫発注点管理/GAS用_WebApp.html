@@ -164,6 +164,7 @@ body {
 }
 .sort-btn:hover { color: var(--text); border-color: var(--primary); background: #f8fafc; }
 .sort-btn[aria-pressed="true"] { background: var(--primary); color: white; border-color: var(--primary); }
+.result-count { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; min-height: 1.4em; }
 .table-wrap {
     background: var(--card-bg);
     border-radius: var(--radius);
@@ -287,6 +288,8 @@ body {
             </div>
         </div>
 
+        <p class="result-count" id="resultCount" aria-live="polite"></p>
+
         <div class="table-wrap">
             <table>
                 <thead>
@@ -332,6 +335,7 @@ body {
     var summaryReview = document.getElementById('summaryReview');
     var summaryTotal = document.getElementById('summaryTotal');
     var summaryOk = document.getElementById('summaryOk');
+    var resultCount = document.getElementById('resultCount');
 
     function getStatus(expiryDays) {
         if (expiryDays === null || expiryDays === undefined || expiryDays === '実績なし' || expiryDays === 999) {
@@ -350,12 +354,22 @@ body {
         return '';
     }
 
+    function normalizeForSearch(str) {
+        if (str == null || typeof str !== 'string') return '';
+        return str
+            .replace(/[\u30FB\u00B7\u2022\u2219・]/g, '')
+            .replace(/\s+/g, '')
+            .toLowerCase()
+            .trim();
+    }
+
     function matchesSearch(item) {
         if (!searchQuery.trim()) return true;
-        var q = searchQuery.trim().toLowerCase();
-        return (item.name && item.name.toLowerCase().indexOf(q) !== -1) ||
-               (item.code && item.code.toLowerCase().indexOf(q) !== -1) ||
-               (item.supplier && item.supplier.toLowerCase().indexOf(q) !== -1);
+        var q = normalizeForSearch(searchQuery);
+        if (!q) return true;
+        return (item.name && normalizeForSearch(item.name).indexOf(q) !== -1) ||
+               (item.code && normalizeForSearch(item.code).indexOf(q) !== -1) ||
+               (item.supplier && normalizeForSearch(item.supplier).indexOf(q) !== -1);
     }
 
     function matchesFilter(item) {
@@ -419,6 +433,7 @@ body {
             tableBody.appendChild(renderRow(item));
         });
         emptyState.hidden = filteredItems.length > 0;
+        if (resultCount) resultCount.textContent = filteredItems.length + '件の品目を表示';
     }
 
     function updateSummary() {
